@@ -79,34 +79,30 @@
 
         <!-- Level Rewards Roadmap -->
         <div class="card rounded-2xl p-5">
-            <h3 class="text-sm font-bold text-neutral-300 uppercase tracking-wider mb-3">🏅 Level Rewards Roadmap</h3>
+            <h3 class="text-sm font-bold text-neutral-300 uppercase tracking-wider mb-3">Level Rewards Roadmap</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div class="bg-white/5 rounded-lg p-3 text-center {{if ge $d.LevelInfo.Level 1}}ring-1 ring-white/20{{end}}">
                     <div class="text-lg">🏅</div>
                     <div class="text-xs font-bold text-white mt-1">Lv.1 · 100 pts</div>
                     <div class="text-[11px] text-neutral-500">Quiz Apprentice</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Bronze Badge</div>
                     {{if ge $d.LevelInfo.Level 1}}<div class="text-[11px] text-emerald-400 mt-0.5">✅ Unlocked</div>{{end}}
                 </div>
                 <div class="bg-white/5 rounded-lg p-3 text-center {{if ge $d.LevelInfo.Level 2}}ring-1 ring-white/20{{end}}">
                     <div class="text-lg">🎖️</div>
                     <div class="text-xs font-bold text-white mt-1">Lv.2 · 300 pts</div>
                     <div class="text-[11px] text-neutral-500">Knowledge Seeker</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Silver Badge</div>
                     {{if ge $d.LevelInfo.Level 2}}<div class="text-[11px] text-emerald-400 mt-0.5">✅ Unlocked</div>{{end}}
                 </div>
                 <div class="bg-white/5 rounded-lg p-3 text-center {{if ge $d.LevelInfo.Level 3}}ring-1 ring-white/20{{end}}">
                     <div class="text-lg">🏆</div>
                     <div class="text-xs font-bold text-white mt-1">Lv.3 · 600 pts</div>
                     <div class="text-[11px] text-neutral-500">Trivia Expert</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Gold Badge</div>
                     {{if ge $d.LevelInfo.Level 3}}<div class="text-[11px] text-emerald-400 mt-0.5">✅ Unlocked</div>{{end}}
                 </div>
                 <div class="bg-white/5 rounded-lg p-3 text-center {{if ge $d.LevelInfo.Level 4}}ring-1 ring-white/20{{end}}">
                     <div class="text-lg">💎</div>
                     <div class="text-xs font-bold text-white mt-1">Lv.4 · 1000 pts</div>
                     <div class="text-[11px] text-neutral-500">Quiz Master</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Diamond Badge</div>
                     {{if ge $d.LevelInfo.Level 4}}<div class="text-[11px] text-emerald-400 mt-0.5">✅ Unlocked</div>{{end}}
                 </div>
             </div>
@@ -131,74 +127,192 @@
     {{$d := .Data}}
     <!-- Landing Page -->
     <div class="animate-fade-in">
-        <div class="text-center py-16 sm:py-20">
-            <div class="text-5xl sm:text-6xl mb-5">🎯</div>
-            <h1 class="text-4xl sm:text-5xl font-black tracking-tight mb-3 text-white">QuizMania</h1>
-            <p class="text-lg text-neutral-300 max-w-md mx-auto mb-2">One question a day.<br>Build streaks. Earn points. Climb the leaderboard.</p>
-            <p class="text-sm text-neutral-500 max-w-sm mx-auto mb-8">Answer daily trivia, unlock badges, level up — and see if you can out-think everyone else.</p>
-            <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="/register" class="px-7 py-3 bg-white text-black font-semibold rounded-xl transition-all hover:bg-neutral-200 hover:scale-[1.03] text-base">
-                    Start Playing — It's Free →
+
+        <!-- Hero -->
+        <div class="text-center pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-neutral-800/60">
+            <p class="text-xs font-semibold uppercase tracking-widest text-neutral-500 mb-5">Daily Trivia Challenge</p>
+            <h1 class="text-5xl sm:text-6xl font-black tracking-tight text-white mb-5 leading-[1.1]">
+                Think you're smart?<br>
+                <span class="text-neutral-500">Prove it. Daily.</span>
+            </h1>
+            <p class="text-base sm:text-lg text-neutral-400 max-w-lg mx-auto mb-10 leading-relaxed">
+                One question per day. Answer correctly to build streaks, earn points, level up, and compete on the global leaderboard.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+                <a href="/register" class="px-8 py-3.5 bg-white text-black font-semibold rounded-xl transition-all hover:bg-neutral-200 hover:scale-[1.02] text-base">
+                    Start Playing — Free
                 </a>
-                <a href="/login" class="px-7 py-3 bg-neutral-900 border border-neutral-700 hover:bg-neutral-800 text-white font-medium rounded-xl transition-all text-base">
+                <a href="/login" class="px-8 py-3.5 bg-transparent border border-neutral-700 hover:border-neutral-500 text-neutral-300 font-medium rounded-xl transition-all text-base">
                     Log in
                 </a>
             </div>
+            <p class="text-xs text-neutral-600">No credit card. No downloads. Just trivia.</p>
         </div>
 
         <!-- How It Works -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
-            <div class="card rounded-2xl p-5 text-center">
-                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-lg mx-auto mb-3">🎯</div>
-                <h3 class="font-bold text-sm text-white mb-1">Daily Question</h3>
-                <p class="text-neutral-400 text-xs leading-relaxed">A fresh trivia question every day at midnight UTC. Sports, science, history — you name it.</p>
-            </div>
-            <div class="card rounded-2xl p-5 text-center">
-                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-lg mx-auto mb-3">🔥</div>
-                <h3 class="font-bold text-sm text-white mb-1">Streak = More Points</h3>
-                <p class="text-neutral-400 text-xs leading-relaxed">Day 1 = 1pt, Day 2 = 2pts, Day 3 = 3pts… Consecutive correct answers multiply your score.</p>
-            </div>
-            <div class="card rounded-2xl p-5 text-center">
-                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-lg mx-auto mb-3">🏆</div>
-                <h3 class="font-bold text-sm text-white mb-1">Levels & Badges</h3>
-                <p class="text-neutral-400 text-xs leading-relaxed">Level up, unlock badges, and compete on the leaderboard. Questions get harder as you progress!</p>
-            </div>
-        </div>
-
-        <!-- Level Rewards Preview -->
-        <div class="card rounded-2xl p-5 mb-8">
-            <h2 class="text-sm font-bold text-center mb-4 text-neutral-400 uppercase tracking-wider">🏅 What You Unlock</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                <div class="bg-white/5 rounded-lg p-3 text-center">
-                    <div class="text-lg">🏅</div>
-                    <div class="text-xs font-bold text-white mt-1">Lv.1 · 100 pts</div>
-                    <div class="text-[11px] text-neutral-500">Quiz Apprentice</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Bronze Badge</div>
+        <div class="py-14 border-b border-neutral-800/60">
+            <p class="text-xs font-semibold uppercase tracking-widest text-neutral-500 text-center mb-8">How It Works</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div class="text-center sm:text-left">
+                    <div class="inline-flex items-center justify-center w-10 h-10 bg-white/[0.06] border border-neutral-800 rounded-xl text-base mb-3">1</div>
+                    <h3 class="font-bold text-white text-sm mb-1.5">Answer one question a day</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed">A fresh trivia question drops every midnight UTC. Categories span sports, science, history, tech, and more.</p>
                 </div>
-                <div class="bg-white/5 rounded-lg p-3 text-center">
-                    <div class="text-lg">🎖️</div>
-                    <div class="text-xs font-bold text-white mt-1">Lv.2 · 300 pts</div>
-                    <div class="text-[11px] text-neutral-500">Knowledge Seeker</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Silver Badge</div>
+                <div class="text-center sm:text-left">
+                    <div class="inline-flex items-center justify-center w-10 h-10 bg-white/[0.06] border border-neutral-800 rounded-xl text-base mb-3">2</div>
+                    <h3 class="font-bold text-white text-sm mb-1.5">Build streaks for bonus points</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed">Day 1 correct = 1 point. Day 2 = 2 points. Day 10 = 10 points. Consecutive correct answers stack up fast.</p>
                 </div>
-                <div class="bg-white/5 rounded-lg p-3 text-center">
-                    <div class="text-lg">🏆</div>
-                    <div class="text-xs font-bold text-white mt-1">Lv.3 · 600 pts</div>
-                    <div class="text-[11px] text-neutral-500">Trivia Expert</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Gold Badge</div>
-                </div>
-                <div class="bg-white/5 rounded-lg p-3 text-center">
-                    <div class="text-lg">💎</div>
-                    <div class="text-xs font-bold text-white mt-1">Lv.4 · 1000 pts</div>
-                    <div class="text-[11px] text-neutral-500">Quiz Master</div>
-                    <div class="text-[11px] text-neutral-600 mt-0.5">Diamond Badge</div>
+                <div class="text-center sm:text-left">
+                    <div class="inline-flex items-center justify-center w-10 h-10 bg-white/[0.06] border border-neutral-800 rounded-xl text-base mb-3">3</div>
+                    <h3 class="font-bold text-white text-sm mb-1.5">Level up and compete</h3>
+                    <p class="text-neutral-500 text-sm leading-relaxed">Unlock levels, earn badges, and see your name on the leaderboard. Questions get harder as you climb.</p>
                 </div>
             </div>
         </div>
 
-        {{if gt $d.TotalUsers 0}}
-        <div class="text-center mb-4">
-            <div class="inline-flex gap-6 card rounded-full px-6 py-3">
+        <!-- Streak Explainer -->
+        <div class="py-14 border-b border-neutral-800/60">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 items-center">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-500 mb-3">The Streak System</p>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4 leading-tight">Consistency is<br>rewarded.</h2>
+                    <p class="text-neutral-400 text-sm leading-relaxed mb-4">Answer correctly on consecutive days and your points multiply. Miss a day or get it wrong — your streak resets to zero.</p>
+                    <p class="text-neutral-500 text-sm">It's simple, it's fair, and it's addictive.</p>
+                </div>
+                <div class="card rounded-2xl p-5">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between py-2 px-3 bg-white/[0.03] rounded-lg">
+                            <span class="text-sm text-neutral-300">Day 1 — correct</span>
+                            <span class="text-sm font-bold text-white">+1 pt</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 px-3 bg-white/[0.03] rounded-lg">
+                            <span class="text-sm text-neutral-300">Day 2 — correct</span>
+                            <span class="text-sm font-bold text-white">+2 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 px-3 bg-white/[0.03] rounded-lg">
+                            <span class="text-sm text-neutral-300">Day 3 — correct</span>
+                            <span class="text-sm font-bold text-white">+3 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 px-3 bg-white/[0.03] rounded-lg">
+                            <span class="text-sm text-neutral-300">Day 10 — correct</span>
+                            <span class="text-sm font-bold text-amber-400">+10 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 px-3 bg-white/[0.03] rounded-lg">
+                            <span class="text-sm text-neutral-300">Day 30 — correct</span>
+                            <span class="text-sm font-bold text-amber-400">+30 pts 🔥</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2 px-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                            <span class="text-sm text-red-400">Day 31 — wrong</span>
+                            <span class="text-sm font-bold text-red-400">Streak resets</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Levels & Badges -->
+        <div class="py-14 border-b border-neutral-800/60">
+            <p class="text-xs font-semibold uppercase tracking-widest text-neutral-500 text-center mb-3">Progression</p>
+            <h2 class="text-2xl font-bold text-white text-center mb-8">Levels & Rewards</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🏅</div>
+                    <div class="text-sm font-bold text-white">Level 1</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">100 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Quiz Apprentice</div>
+                </div>
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🎖️</div>
+                    <div class="text-sm font-bold text-white">Level 2</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">300 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Knowledge Seeker</div>
+                </div>
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🏆</div>
+                    <div class="text-sm font-bold text-white">Level 3</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">600 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Trivia Expert</div>
+                </div>
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">💎</div>
+                    <div class="text-sm font-bold text-white">Level 4</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">1,000 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Quiz Master</div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">👑</div>
+                    <div class="text-sm font-bold text-white">Level 5</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">1,500 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Grandmaster</div>
+                </div>
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">⭐</div>
+                    <div class="text-sm font-bold text-white">Level 6</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">2,100 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Quiz Legend</div>
+                </div>
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🌟</div>
+                    <div class="text-sm font-bold text-white">Level 7</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">2,800 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Omniscient</div>
+                </div>
+                <div class="card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">✨</div>
+                    <div class="text-sm font-bold text-white">Level 8</div>
+                    <div class="text-xs text-neutral-500 mt-0.5">3,600 points</div>
+                    <div class="text-xs text-neutral-600 mt-1">Quiz Deity</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Difficulty -->
+        <div class="py-14 border-b border-neutral-800/60">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 items-center">
+                <div class="card rounded-2xl p-5">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between py-2.5 px-3 bg-emerald-500/5 border border-emerald-500/10 rounded-lg">
+                            <span class="text-sm text-emerald-400 font-medium">Easy</span>
+                            <span class="text-xs text-neutral-500">Streak 1 – 5</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2.5 px-3 bg-blue-500/5 border border-blue-500/10 rounded-lg">
+                            <span class="text-sm text-blue-400 font-medium">Medium</span>
+                            <span class="text-xs text-neutral-500">Streak 6 – 15</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2.5 px-3 bg-amber-500/5 border border-amber-500/10 rounded-lg">
+                            <span class="text-sm text-amber-400 font-medium">Hard</span>
+                            <span class="text-xs text-neutral-500">Streak 16 – 30</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2.5 px-3 bg-orange-500/5 border border-orange-500/10 rounded-lg">
+                            <span class="text-sm text-orange-400 font-medium">Expert</span>
+                            <span class="text-xs text-neutral-500">Streak 31 – 50</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2.5 px-3 bg-red-500/5 border border-red-500/10 rounded-lg">
+                            <span class="text-sm text-red-400 font-medium">Master</span>
+                            <span class="text-xs text-neutral-500">Streak 51+</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest text-neutral-500 mb-3">Adaptive Difficulty</p>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4 leading-tight">Questions get<br>harder.</h2>
+                    <p class="text-neutral-400 text-sm leading-relaxed">The longer your streak, the tougher the questions. Easy trivia at first — then we test what you really know.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="py-16 text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3">Ready to play?</h2>
+            <p class="text-neutral-500 text-sm mb-8 max-w-sm mx-auto">Join now. Your first question is waiting.</p>
+            <a href="/register" class="inline-block px-8 py-3.5 bg-white text-black font-semibold rounded-xl transition-all hover:bg-neutral-200 hover:scale-[1.02] text-base">
+                Create Free Account
+            </a>
+            {{if gt $d.TotalUsers 0}}
+            <div class="mt-8 inline-flex gap-6 card rounded-full px-6 py-3">
                 <div>
                     <span class="font-bold text-white">{{$d.TotalUsers}}</span>
                     <span class="text-neutral-500 text-xs ml-1">players</span>
@@ -206,11 +320,11 @@
                 <div class="w-px bg-neutral-800"></div>
                 <div>
                     <span class="font-bold text-white">{{$d.TotalAnswers}}</span>
-                    <span class="text-neutral-500 text-xs ml-1">answers</span>
+                    <span class="text-neutral-500 text-xs ml-1">questions answered</span>
                 </div>
             </div>
+            {{end}}
         </div>
-        {{end}}
     </div>
 {{end}}
 {{end}}
