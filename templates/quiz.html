@@ -1,0 +1,94 @@
+{{define "content"}}
+{{if .Data}}
+{{$d := .Data}}
+<div class="max-w-xl mx-auto animate-fade-in">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-5">
+        <div>
+            <h1 class="text-lg font-bold text-white">Today's Question</h1>
+            <p class="text-neutral-500 text-xs mt-0.5">{{$d.Difficulty}} · {{$d.Question.Category}}</p>
+        </div>
+        <div class="flex items-center gap-2">
+            {{if gt $d.Streak 0}}
+            <span class="inline-flex items-center gap-1 bg-amber-500/10 border border-amber-500/20 rounded-full px-2.5 py-1 text-amber-400 text-xs font-semibold">
+                🔥 {{$d.Streak}}
+            </span>
+            {{end}}
+            <span class="text-[11px] text-neutral-600">⏰ {{.TimeUntilReset}}</span>
+        </div>
+    </div>
+
+    <!-- Question Card -->
+    <div class="card rounded-2xl overflow-hidden">
+        <div class="bg-white/5 px-5 py-5 border-b border-neutral-800">
+            <p class="text-base sm:text-lg font-semibold leading-relaxed text-white">{{$d.Question.Text}}</p>
+        </div>
+
+        <form method="POST" action="/quiz/answer" class="p-5" id="quizForm">
+            <div class="space-y-2.5">
+                <label class="option-btn block cursor-pointer">
+                    <input type="radio" name="answer" value="A" required class="peer hidden">
+                    <div class="flex items-center gap-3 p-4 bg-white/3 border-2 border-neutral-800 rounded-xl peer-checked:border-white peer-checked:bg-white/10 transition-all">
+                        <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-neutral-800 peer-checked:bg-white peer-checked:text-black rounded-lg text-sm font-bold">A</span>
+                        <span class="text-sm text-neutral-200">{{$d.Question.OptionA}}</span>
+                    </div>
+                </label>
+
+                <label class="option-btn block cursor-pointer">
+                    <input type="radio" name="answer" value="B" class="peer hidden">
+                    <div class="flex items-center gap-3 p-4 bg-white/3 border-2 border-neutral-800 rounded-xl peer-checked:border-white peer-checked:bg-white/10 transition-all">
+                        <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-neutral-800 rounded-lg text-sm font-bold">B</span>
+                        <span class="text-sm text-neutral-200">{{$d.Question.OptionB}}</span>
+                    </div>
+                </label>
+
+                <label class="option-btn block cursor-pointer">
+                    <input type="radio" name="answer" value="C" class="peer hidden">
+                    <div class="flex items-center gap-3 p-4 bg-white/3 border-2 border-neutral-800 rounded-xl peer-checked:border-white peer-checked:bg-white/10 transition-all">
+                        <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-neutral-800 rounded-lg text-sm font-bold">C</span>
+                        <span class="text-sm text-neutral-200">{{$d.Question.OptionC}}</span>
+                    </div>
+                </label>
+
+                <label class="option-btn block cursor-pointer">
+                    <input type="radio" name="answer" value="D" class="peer hidden">
+                    <div class="flex items-center gap-3 p-4 bg-white/3 border-2 border-neutral-800 rounded-xl peer-checked:border-white peer-checked:bg-white/10 transition-all">
+                        <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-neutral-800 rounded-lg text-sm font-bold">D</span>
+                        <span class="text-sm text-neutral-200">{{$d.Question.OptionD}}</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between mt-5 pt-4 border-t border-neutral-800">
+                {{if gt $d.Streak 0}}
+                <p class="text-xs text-neutral-400">Correct = <span class="text-white font-bold">+{{add $d.Streak 1}} pts</span></p>
+                {{else}}
+                <p class="text-xs text-neutral-400">Correct = <span class="text-white font-bold">+1 pt</span></p>
+                {{end}}
+                <button type="submit" id="submitBtn"
+                    class="px-6 py-2.5 bg-white text-black hover:bg-neutral-200 disabled:bg-neutral-700 disabled:text-neutral-400 disabled:cursor-not-allowed text-sm font-semibold rounded-lg transition-all">
+                    Submit Answer
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <p class="text-center text-neutral-600 text-[11px] mt-4">You only get one shot per day — choose wisely!</p>
+</div>
+
+<script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+        if (!document.querySelector('input[name="answer"]:checked')) { e.preventDefault(); return; }
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').textContent = 'Submitting…';
+    });
+</script>
+{{else}}
+<div class="max-w-xl mx-auto text-center py-16">
+    <div class="text-4xl mb-3">😕</div>
+    <h1 class="text-xl font-bold mb-1 text-white">No Questions Available</h1>
+    <p class="text-neutral-400 text-sm">Check back later — more are being added!</p>
+    <a href="/" class="inline-block mt-5 px-5 py-2 bg-neutral-900 border border-neutral-700 hover:bg-neutral-800 rounded-lg transition-colors text-sm">← Home</a>
+</div>
+{{end}}
+{{end}}

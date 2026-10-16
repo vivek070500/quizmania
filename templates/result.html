@@ -1,0 +1,138 @@
+{{define "content"}}
+{{if .Data}}
+{{$d := .Data}}
+<div class="max-w-xl mx-auto animate-fade-in">
+    <!-- Result Banner -->
+    {{if $d.IsCorrect}}
+    <div class="text-center py-8">
+        <div class="text-6xl mb-3 animate-bounce-in">🎉</div>
+        <h1 class="text-3xl font-extrabold text-emerald-400">Correct!</h1>
+        <p class="text-neutral-300 text-base mt-2">You earned <span class="text-emerald-400 font-bold">+{{$d.PointsEarned}} points</span></p>
+        {{if gt $d.NewStreak 1}}
+        <div class="mt-4 inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-5 py-2">
+            <span class="text-xl streak-fire">🔥</span>
+            <span class="text-amber-400 font-bold">{{$d.NewStreak}}-day streak!</span>
+        </div>
+        {{end}}
+    </div>
+    {{else}}
+    <div class="text-center py-8">
+        <div class="text-6xl mb-3 animate-bounce-in">😔</div>
+        <h1 class="text-3xl font-extrabold text-red-400">Incorrect</h1>
+        <p class="text-neutral-400 text-base mt-2">Don't worry — tomorrow is a fresh start!</p>
+    </div>
+    {{end}}
+
+    <!-- Answer Review -->
+    <div class="card rounded-2xl overflow-hidden mb-6">
+        <div class="bg-white/5 px-5 py-4 border-b border-neutral-800">
+            <p class="text-xs text-neutral-500 uppercase tracking-wider">{{$d.Question.Category}}</p>
+            <p class="font-semibold text-white mt-1">{{$d.Question.Text}}</p>
+        </div>
+        <div class="p-5 space-y-2.5">
+            {{$sel := $d.Selected}}
+            {{$cor := $d.Question.CorrectOption}}
+
+            <!-- Option A -->
+            <div class="flex items-center gap-3 p-3.5 rounded-xl {{if eq $cor "A"}}bg-emerald-500/10 border-2 border-emerald-500/40{{else if eq $sel "A"}}bg-red-500/10 border-2 border-red-500/40{{else}}bg-white/3 border-2 border-neutral-800{{end}}">
+                <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold {{if eq $cor "A"}}bg-emerald-500 text-white{{else if eq $sel "A"}}bg-red-500 text-white{{else}}bg-neutral-800 text-neutral-400{{end}}">A</span>
+                <span class="flex-1 text-sm {{if eq $cor "A"}}text-emerald-300 font-semibold{{else if eq $sel "A"}}text-red-300{{else}}text-neutral-500{{end}}">{{$d.Question.OptionA}}</span>
+                {{if eq $cor "A"}}<span class="text-emerald-400 text-xs font-bold px-2 py-0.5 bg-emerald-500/20 rounded">✓ Correct Answer</span>{{end}}
+                {{if and (eq $sel "A") (ne $sel $cor)}}<span class="text-red-400 text-xs font-bold px-2 py-0.5 bg-red-500/20 rounded">✗ Your Answer</span>{{end}}
+            </div>
+
+            <!-- Option B -->
+            <div class="flex items-center gap-3 p-3.5 rounded-xl {{if eq $cor "B"}}bg-emerald-500/10 border-2 border-emerald-500/40{{else if eq $sel "B"}}bg-red-500/10 border-2 border-red-500/40{{else}}bg-white/3 border-2 border-neutral-800{{end}}">
+                <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold {{if eq $cor "B"}}bg-emerald-500 text-white{{else if eq $sel "B"}}bg-red-500 text-white{{else}}bg-neutral-800 text-neutral-400{{end}}">B</span>
+                <span class="flex-1 text-sm {{if eq $cor "B"}}text-emerald-300 font-semibold{{else if eq $sel "B"}}text-red-300{{else}}text-neutral-500{{end}}">{{$d.Question.OptionB}}</span>
+                {{if eq $cor "B"}}<span class="text-emerald-400 text-xs font-bold px-2 py-0.5 bg-emerald-500/20 rounded">✓ Correct Answer</span>{{end}}
+                {{if and (eq $sel "B") (ne $sel $cor)}}<span class="text-red-400 text-xs font-bold px-2 py-0.5 bg-red-500/20 rounded">✗ Your Answer</span>{{end}}
+            </div>
+
+            <!-- Option C -->
+            <div class="flex items-center gap-3 p-3.5 rounded-xl {{if eq $cor "C"}}bg-emerald-500/10 border-2 border-emerald-500/40{{else if eq $sel "C"}}bg-red-500/10 border-2 border-red-500/40{{else}}bg-white/3 border-2 border-neutral-800{{end}}">
+                <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold {{if eq $cor "C"}}bg-emerald-500 text-white{{else if eq $sel "C"}}bg-red-500 text-white{{else}}bg-neutral-800 text-neutral-400{{end}}">C</span>
+                <span class="flex-1 text-sm {{if eq $cor "C"}}text-emerald-300 font-semibold{{else if eq $sel "C"}}text-red-300{{else}}text-neutral-500{{end}}">{{$d.Question.OptionC}}</span>
+                {{if eq $cor "C"}}<span class="text-emerald-400 text-xs font-bold px-2 py-0.5 bg-emerald-500/20 rounded">✓ Correct Answer</span>{{end}}
+                {{if and (eq $sel "C") (ne $sel $cor)}}<span class="text-red-400 text-xs font-bold px-2 py-0.5 bg-red-500/20 rounded">✗ Your Answer</span>{{end}}
+            </div>
+
+            <!-- Option D -->
+            <div class="flex items-center gap-3 p-3.5 rounded-xl {{if eq $cor "D"}}bg-emerald-500/10 border-2 border-emerald-500/40{{else if eq $sel "D"}}bg-red-500/10 border-2 border-red-500/40{{else}}bg-white/3 border-2 border-neutral-800{{end}}">
+                <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-sm font-bold {{if eq $cor "D"}}bg-emerald-500 text-white{{else if eq $sel "D"}}bg-red-500 text-white{{else}}bg-neutral-800 text-neutral-400{{end}}">D</span>
+                <span class="flex-1 text-sm {{if eq $cor "D"}}text-emerald-300 font-semibold{{else if eq $sel "D"}}text-red-300{{else}}text-neutral-500{{end}}">{{$d.Question.OptionD}}</span>
+                {{if eq $cor "D"}}<span class="text-emerald-400 text-xs font-bold px-2 py-0.5 bg-emerald-500/20 rounded">✓ Correct Answer</span>{{end}}
+                {{if and (eq $sel "D") (ne $sel $cor)}}<span class="text-red-400 text-xs font-bold px-2 py-0.5 bg-red-500/20 rounded">✗ Your Answer</span>{{end}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-3 gap-3 mb-6">
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-2xl font-extrabold text-white">{{$d.TotalPoints}}</div>
+            <div class="text-xs text-neutral-500 mt-1">Total Points</div>
+        </div>
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-2xl font-extrabold {{if gt $d.NewStreak 0}}text-amber-400 streak-fire{{else}}text-neutral-600{{end}}">
+                {{if gt $d.NewStreak 0}}🔥 {{$d.NewStreak}}{{else}}0{{end}}
+            </div>
+            <div class="text-xs text-neutral-500 mt-1">Streak</div>
+        </div>
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-2xl font-extrabold text-white">Lv.{{$d.LevelInfo.Level}}</div>
+            <div class="text-xs text-neutral-500 mt-1">{{$d.LevelInfo.Title}}</div>
+        </div>
+    </div>
+
+    <!-- Level Progress -->
+    <div class="card rounded-xl p-4 mb-6">
+        <div class="flex justify-between text-sm mb-2">
+            <span class="text-neutral-300 font-medium">Level {{$d.LevelInfo.Level}} — {{$d.LevelInfo.Title}}</span>
+            <span class="text-neutral-500">{{$d.LevelInfo.PointsNeeded}} pts to Lv.{{$d.LevelInfo.NextLevel}}</span>
+        </div>
+        <div class="w-full bg-neutral-800 rounded-full h-2.5 overflow-hidden">
+            <div class="progress-bar bg-white h-2.5 rounded-full" style="width: {{printf "%.1f" $d.LevelInfo.Progress}}%"></div>
+        </div>
+        <p class="text-xs text-neutral-600 mt-2">{{$d.LevelInfo.Reward}}</p>
+    </div>
+
+    <!-- Level Rewards Roadmap -->
+    <div class="card rounded-xl p-5 mb-6">
+        <h3 class="text-sm font-bold text-neutral-300 uppercase tracking-wider mb-3">🏅 Level Rewards</h3>
+        <div class="space-y-2">
+            <div class="flex items-center justify-between py-1.5 {{if ge $d.TotalPoints 100}}text-white{{else}}text-neutral-600{{end}}">
+                <span class="text-sm">Lv.1 — Quiz Apprentice</span>
+                <span class="text-xs">100 pts → 🏅 Bronze Badge{{if ge $d.TotalPoints 100}} ✅{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-1.5 {{if ge $d.TotalPoints 300}}text-white{{else}}text-neutral-600{{end}}">
+                <span class="text-sm">Lv.2 — Knowledge Seeker</span>
+                <span class="text-xs">300 pts → 🎖️ Silver Badge{{if ge $d.TotalPoints 300}} ✅{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-1.5 {{if ge $d.TotalPoints 600}}text-white{{else}}text-neutral-600{{end}}">
+                <span class="text-sm">Lv.3 — Trivia Expert</span>
+                <span class="text-xs">600 pts → 🏆 Gold Badge{{if ge $d.TotalPoints 600}} ✅{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-1.5 {{if ge $d.TotalPoints 1000}}text-white{{else}}text-neutral-600{{end}}">
+                <span class="text-sm">Lv.4 — Quiz Master</span>
+                <span class="text-xs">1000 pts → 💎 Diamond Badge{{if ge $d.TotalPoints 1000}} ✅{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-1.5 {{if ge $d.TotalPoints 1500}}text-white{{else}}text-neutral-600{{end}}">
+                <span class="text-sm">Lv.5 — Grandmaster</span>
+                <span class="text-xs">1500 pts → 👑 Crown{{if ge $d.TotalPoints 1500}} ✅{{end}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="text-center space-y-3">
+        <p class="text-neutral-500 text-sm">⏰ Next question in <span class="text-white font-semibold">{{.TimeUntilReset}}</span></p>
+        <div class="flex gap-3 justify-center">
+            <a href="/leaderboard" class="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 rounded-lg text-sm font-medium transition-colors">🏆 Leaderboard</a>
+            <a href="/profile" class="px-5 py-2.5 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 rounded-lg text-sm font-medium transition-colors">🎖️ Badges</a>
+            <a href="/" class="px-5 py-2.5 bg-white text-black hover:bg-neutral-200 rounded-lg text-sm font-medium transition-colors">← Home</a>
+        </div>
+    </div>
+</div>
+{{end}}
+{{end}}

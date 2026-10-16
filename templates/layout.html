@@ -1,0 +1,112 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} | QuizMania</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
+                            300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
+                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a'
+                        }
+                    },
+                    animation: {
+                        'bounce-in': 'bounceIn 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97)',
+                        'slide-up': 'slideUp 0.35s ease-out',
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'glow': 'glow 2.5s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.5)', opacity: '0' },
+                            '60%': { transform: 'scale(1.08)' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(16px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 8px rgba(59, 130, 246, 0.2)' },
+                            '100%': { boxShadow: '0 0 24px rgba(59, 130, 246, 0.4), 0 0 48px rgba(59, 130, 246, 0.1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .streak-fire { text-shadow: 0 0 8px #f59e0b, 0 0 16px #ef4444; }
+        .badge-locked { filter: grayscale(1) opacity(0.35); }
+        .option-btn { transition: all 0.15s ease; }
+        .option-btn:hover { transform: translateY(-1px); }
+        .progress-bar { transition: width 0.8s ease-in-out; }
+        .card { background: #111113; border: 1px solid #27272a; }
+    </style>
+</head>
+<body class="h-full bg-black text-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-black/90 backdrop-blur-xl border-b border-neutral-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-14">
+                <a href="/" class="flex items-center gap-2.5 group">
+                    <span class="text-xl">🎯</span>
+                    <span class="text-lg font-extrabold tracking-tight text-white">QuizMania</span>
+                </a>
+                <div class="flex items-center gap-0.5 sm:gap-1">
+                    {{if .User}}
+                        <a href="/quiz" class="px-3 py-1.5 text-sm font-medium text-neutral-400 hover:text-white rounded-lg transition-colors">Quiz</a>
+                        <a href="/leaderboard" class="px-3 py-1.5 text-sm font-medium text-neutral-400 hover:text-white rounded-lg transition-colors">Leaderboard</a>
+                        <a href="/profile" class="px-3 py-1.5 text-sm font-medium text-neutral-400 hover:text-white rounded-lg transition-colors">Profile</a>
+                        <span class="hidden sm:inline-flex items-center ml-2 px-2.5 py-1 bg-white/5 rounded-full border border-white/10 text-white text-xs font-semibold">⚡ {{.User.TotalPoints}}</span>
+                        <a href="/logout" class="ml-1 px-3 py-1.5 text-sm text-neutral-500 hover:text-red-400 rounded-lg transition-colors">Logout</a>
+                    {{else}}
+                        <a href="/login" class="px-3.5 py-1.5 text-sm font-medium text-neutral-400 hover:text-white rounded-lg transition-colors">Log in</a>
+                        <a href="/register" class="px-3.5 py-1.5 text-sm font-semibold bg-white text-black hover:bg-neutral-200 rounded-lg transition-all">Sign up</a>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 min-h-[calc(100vh-8rem)]">
+        {{if .Error}}
+        <div class="mb-6 flex items-center gap-3 p-4 bg-red-950/40 border border-red-900/50 rounded-xl text-red-300 text-sm animate-slide-up">
+            <span class="flex-shrink-0">⚠️</span> {{.Error}}
+        </div>
+        {{end}}
+        {{if .Success}}
+        <div class="mb-6 flex items-center gap-3 p-4 bg-emerald-950/40 border border-emerald-900/50 rounded-xl text-emerald-300 text-sm animate-slide-up">
+            <span class="flex-shrink-0">✅</span> {{.Success}}
+        </div>
+        {{end}}
+
+        {{template "content" .}}
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-800 py-5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-neutral-600 text-xs">
+            <span>🎯 QuizMania — One question. Every day. No excuses.</span>
+            <span>Resets daily at midnight UTC</span>
+        </div>
+    </footer>
+</body>
+</html>
+{{end}}

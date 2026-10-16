@@ -1,0 +1,6 @@
+quizmania
+*.db
+*.db-wal
+*.db-shm
+cookies.txt
+/tmp/

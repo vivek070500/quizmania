@@ -1,0 +1,140 @@
+{{define "content"}}
+{{$d := .Data}}
+<div class="max-w-2xl mx-auto animate-fade-in">
+    <!-- Header -->
+    <div class="card rounded-2xl p-5 sm:p-6 mb-5">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-white/10 border border-neutral-700 rounded-xl flex items-center justify-center text-2xl">
+                {{if gt $d.LevelInfo.Level 4}}👑{{else if gt $d.LevelInfo.Level 2}}⭐{{else}}🎯{{end}}
+            </div>
+            <div>
+                <h1 class="text-lg font-bold text-white">{{.User.DisplayName}}</h1>
+                <p class="text-neutral-500 text-xs">{{.User.Email}}</p>
+                <div class="flex items-center gap-1.5 mt-1">
+                    <span class="px-2 py-0.5 bg-white/10 text-white rounded-full text-[11px] font-semibold">Lv.{{$d.LevelInfo.Level}} · {{$d.LevelInfo.Title}}</span>
+                    {{if gt $d.CurrentStreak 0}}
+                    <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 rounded-full text-[11px] font-semibold">🔥 {{$d.CurrentStreak}}</span>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="mt-4">
+            <div class="flex justify-between text-xs mb-1.5">
+                <span class="text-neutral-300">{{$d.LevelInfo.Title}}</span>
+                <span class="text-neutral-600">{{$d.LevelInfo.PointsNeeded}} pts → Lv.{{$d.LevelInfo.NextLevel}}</span>
+            </div>
+            <div class="w-full bg-neutral-800 rounded-full h-2.5 overflow-hidden">
+                <div class="progress-bar bg-white h-2.5 rounded-full" style="width: {{printf "%.1f" $d.LevelInfo.Progress}}%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-xl font-extrabold text-white">{{$d.TotalPoints}}</div>
+            <div class="text-xs text-neutral-500 mt-1">Points</div>
+        </div>
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-xl font-extrabold text-emerald-400">{{printf "%.0f" $d.Accuracy}}%</div>
+            <div class="text-xs text-neutral-500 mt-1">Accuracy</div>
+        </div>
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-xl font-extrabold text-neutral-200">{{$d.LongestStreak}}</div>
+            <div class="text-xs text-neutral-500 mt-1">Best Streak</div>
+        </div>
+        <div class="card rounded-xl p-4 text-center">
+            <div class="text-xl font-extrabold text-neutral-200">{{$d.DaysActive}}</div>
+            <div class="text-xs text-neutral-500 mt-1">Days Active</div>
+        </div>
+    </div>
+
+    <div class="text-xs text-neutral-500 mb-5 px-1">{{$d.TotalCorrect}} correct out of {{$d.TotalAnswered}} answered</div>
+
+    <!-- Level Rewards -->
+    <div class="card rounded-2xl p-5 mb-5">
+        <h2 class="text-sm font-bold mb-3 text-neutral-300 uppercase tracking-wider">🏅 Level Rewards</h2>
+        <div class="space-y-1">
+            <div class="flex items-center justify-between py-2 px-3 rounded-lg {{if ge $d.LevelInfo.Level 1}}bg-white/5 text-white{{else}}text-neutral-600{{end}}">
+                <div class="flex items-center gap-2">
+                    <span>🏅</span>
+                    <span class="text-sm font-medium">Lv.1 — Quiz Apprentice</span>
+                </div>
+                <span class="text-xs">100 pts{{if ge $d.LevelInfo.Level 1}} <span class="text-emerald-400 font-bold">✅</span>{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-2 px-3 rounded-lg {{if ge $d.LevelInfo.Level 2}}bg-white/5 text-white{{else}}text-neutral-600{{end}}">
+                <div class="flex items-center gap-2">
+                    <span>🎖️</span>
+                    <span class="text-sm font-medium">Lv.2 — Knowledge Seeker</span>
+                </div>
+                <span class="text-xs">300 pts{{if ge $d.LevelInfo.Level 2}} <span class="text-emerald-400 font-bold">✅</span>{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-2 px-3 rounded-lg {{if ge $d.LevelInfo.Level 3}}bg-white/5 text-white{{else}}text-neutral-600{{end}}">
+                <div class="flex items-center gap-2">
+                    <span>🏆</span>
+                    <span class="text-sm font-medium">Lv.3 — Trivia Expert</span>
+                </div>
+                <span class="text-xs">600 pts{{if ge $d.LevelInfo.Level 3}} <span class="text-emerald-400 font-bold">✅</span>{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-2 px-3 rounded-lg {{if ge $d.LevelInfo.Level 4}}bg-white/5 text-white{{else}}text-neutral-600{{end}}">
+                <div class="flex items-center gap-2">
+                    <span>💎</span>
+                    <span class="text-sm font-medium">Lv.4 — Quiz Master</span>
+                </div>
+                <span class="text-xs">1000 pts{{if ge $d.LevelInfo.Level 4}} <span class="text-emerald-400 font-bold">✅</span>{{end}}</span>
+            </div>
+            <div class="flex items-center justify-between py-2 px-3 rounded-lg {{if ge $d.LevelInfo.Level 5}}bg-white/5 text-white{{else}}text-neutral-600{{end}}">
+                <div class="flex items-center gap-2">
+                    <span>👑</span>
+                    <span class="text-sm font-medium">Lv.5 — Grandmaster</span>
+                </div>
+                <span class="text-xs">1500 pts{{if ge $d.LevelInfo.Level 5}} <span class="text-emerald-400 font-bold">✅</span>{{end}}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Badges -->
+    <div class="card rounded-2xl p-5 mb-5">
+        <h2 class="text-sm font-bold mb-3 text-neutral-300 uppercase tracking-wider">🎖️ Badges</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+            {{range $d.AllBadges}}
+            <div class="p-3.5 rounded-xl border transition-all {{if .Earned}}bg-white/5 border-neutral-700{{else}}bg-white/[0.02] border-neutral-800/50 badge-locked{{end}}">
+                <div class="text-2xl mb-1.5">{{.Icon}}</div>
+                <div class="font-semibold text-xs {{if .Earned}}text-white{{else}}text-neutral-700{{end}}">{{.Name}}</div>
+                <div class="text-[11px] {{if .Earned}}text-neutral-400{{else}}text-neutral-700{{end}} mt-0.5">{{.Description}}</div>
+                {{if .Earned}}
+                <div class="text-[11px] text-emerald-400 mt-1.5 font-medium">✅ Earned {{.EarnedAt}}</div>
+                {{else}}
+                <div class="text-[11px] text-neutral-700 mt-1.5">🔒 Locked</div>
+                {{end}}
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <!-- History -->
+    {{if $d.RecentAnswers}}
+    <div class="card rounded-2xl p-5">
+        <h2 class="text-sm font-bold mb-3 text-neutral-300 uppercase tracking-wider">📝 Recent Answers</h2>
+        <div class="space-y-1.5">
+            {{range $d.RecentAnswers}}
+            <div class="flex items-center gap-3 p-3 bg-white/3 rounded-xl">
+                <div class="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg text-xs font-bold {{if .IsCorrect}}bg-emerald-500/20 text-emerald-400{{else}}bg-red-500/20 text-red-400{{end}}">
+                    {{if .IsCorrect}}✓{{else}}✗{{end}}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-xs text-neutral-200 truncate">{{.QuestionText}}</div>
+                    <div class="text-[11px] text-neutral-600">{{.Date}} · {{.Category}}</div>
+                </div>
+                <div class="text-sm font-bold {{if .IsCorrect}}text-emerald-400{{else}}text-neutral-700{{end}}">
+                    {{if .IsCorrect}}+{{.PointsEarned}}{{else}}0{{end}}
+                </div>
+            </div>
+            {{end}}
+        </div>
+    </div>
+    {{end}}
+</div>
+{{end}}
